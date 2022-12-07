@@ -1,0 +1,12 @@
+.fade {
+  opacity: 0; // this will always hide the dom
+  transition: opacity 0.15s linear 0s;
+}
+
+.modal {position: fixed; top: 0px; right: 0px; bottom: 0px;
+  left: 0px;
+  z-index: 1050;
+  display: none; //this will always hide the dom
+  overflow: hidden;
+  outline: 0px;
+}

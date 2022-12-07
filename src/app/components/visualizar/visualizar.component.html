@@ -1,0 +1,100 @@
+<div *ngIf="mostrarAlert" class="{{styleAlert}}" role="alert">
+  {{msgAlert}}
+</div>
+
+<br/>
+
+<div class="row">
+  <div class="row">
+    <div class="col-sm-12">
+        <h2>
+          Cliente: {{pedido?.nomeCliente}}
+        </h2>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        Produtos
+      </div>
+
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Produto</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Valor Unitário</th>
+              <th scope="col">Valor Total</th>
+              <th scope="col">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pedido?.itensPedidos">
+              <th scope="row">{{ item?.nomeProduto }}</th>
+              <td>{{ item?.quantidade }}</td>
+              <td>{{ item?.valorUnitario }}</td>
+              <td>{{ item?.valorUnitario *  item?.quantidade }}</td>
+              <td>
+                <button (click)="excluirPedido(item?.id)" type="button" class="btn btn-danger" data-bs-toggle="modalQuantidade" data-bs-target="#staticBackdrop">
+                  Excluir
+                </button>
+                &nbsp;
+                <button (click)="openModalQuantidade(item?.id,item?.idProduto, item?.nomeProduto, item?.quantidade)" type="button" class="btn btn-secondary" data-bs-toggle="modalQuantidade" data-bs-target="#staticBackdrop">
+                  Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+<div class="row">
+  <div class="col-sm-10">
+  </div>
+  <div class="col-sm-2">
+    <button (click)="voltar()" type="button" class="btn btn-primary" data-bs-toggle="modal">
+      Voltar
+   </button>
+  </div>
+</div>
+
+<!-- Modal Quantidade-->
+<div
+  class="modal modalQuantidade"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayQuantidade}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{this.nomeProduto}}</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+        <div class="form-group">
+          <label>Quantidade</label>
+          <input class="form-control" type="number" [(ngModel)]="quantidade" required>
+        </div>
+      </div>
+<br/>
+          <div class="row">
+            <div class="form-group">
+              <a class="btn btn-primary" (click)="salvarQuantidade()">Salvar</a>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closePopupQuantidade()">
+                Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
